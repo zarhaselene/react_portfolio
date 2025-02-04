@@ -1,5 +1,6 @@
 import { useContext, useState } from "react";
 import PortfolioContext from "../context/PortfolioContext";
+import { FaGithub } from "react-icons/fa";
 
 export default function Home() {
   const [hoveredLetter, setHoveredLetter] = useState({
@@ -7,10 +8,12 @@ export default function Home() {
     index: null,
   });
 
+  const { projects, techSkills } = useContext(PortfolioContext);
+
   const handleMouseEnter = (word, index) => {
     setHoveredLetter({ word, index });
   };
-  const { projects, techSkills } = useContext(PortfolioContext);
+
   const renderLetters = (word, className) => {
     return word.split("").map((letter, index) => (
       <span
@@ -27,6 +30,7 @@ export default function Home() {
       </span>
     ));
   };
+
   return (
     <div className="min-h-screen bg-tertiary flex flex-col">
       {/* Hero */}
@@ -48,24 +52,28 @@ export default function Home() {
       </section>
 
       {/* Tech Skills */}
-      <section className="py-12 bg-tertiary px-4 ">
+      <section className="py-12 bg-tertiary px-4">
         <h2 className="text-3xl font-bold text-center mb-8 text-white">
           Technical Skills
         </h2>
         <div className="flex flex-wrap justify-center gap-2">
-          {techSkills.map((skill, index) => (
-            <span key={index} className="bg-secondary px-3 py-1 rounded-full">
-              {skill}
-            </span>
-          ))}
+          {techSkills && techSkills.length > 0 ? (
+            techSkills.map((skill, index) => (
+              <span key={index} className="bg-secondary px-3 py-1 rounded-full">
+                {skill}
+              </span>
+            ))
+          ) : (
+            <p className="text-white">No skills to display</p>
+          )}
         </div>
       </section>
 
       {/* Projects  */}
-      <section className="py-12 px-4 max-w-6xl mx-auto  text-white">
+      <section className="py-12 px-4 max-w-6xl mx-auto text-white">
         <h2 className="text-3xl font-bold text-center mb-8">Projects</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {projects.map((project) => (
+          {(projects ?? []).map((project) => (
             <div
               key={project.id}
               className="bg-primary rounded-lg shadow-md p-6"
@@ -77,35 +85,29 @@ export default function Home() {
                   className="w-full h-48 object-cover rounded-md mb-4"
                 />
               )}
-              <h3 className="text-xl font-bold mb-2">{project.title}</h3>
-              <p className="text-secondary mb-4">{project.description}</p>
+              <div className="flex items-start justify-between">
+                <h3 className="text-xl font-bold mb-2 text-secondary">
+                  {project.title}
+                </h3>
+                {project.codeLink && (
+                  <a
+                    href={project.codeLink}
+                    className="text-white hover:text-secondary text-2xl block"
+                  >
+                    <FaGithub />
+                  </a>
+                )}
+              </div>
+              <p className="text-white mb-4">{project.description}</p>
               <div className="flex flex-wrap gap-2 mb-4">
-                {project.techUsed.map((tech, index) => (
+                {(project.techUsed ?? []).map((tech, index) => (
                   <span
                     key={index}
-                    className="bg-primary text-white px-2 py-1 rounded text-sm"
+                    className="bg-secondary cursor-default text-white px-2 py-1 rounded text-sm"
                   >
                     {tech}
                   </span>
                 ))}
-              </div>
-              <div className="space-y-2">
-                {project.demoLink && (
-                  <a
-                    href={project.demoLink}
-                    className="text-blue-500 hover:underline block"
-                  >
-                    Demo
-                  </a>
-                )}
-                {project.codeLink && (
-                  <a
-                    href={project.codeLink}
-                    className="text-blue-500 hover:underline block"
-                  >
-                    Code
-                  </a>
-                )}
               </div>
             </div>
           ))}
