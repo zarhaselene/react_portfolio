@@ -51,6 +51,7 @@ export default function Admin() {
     } else {
       addProject(projectData);
     }
+
     setProjectData({
       id: null,
       title: "",
@@ -96,7 +97,7 @@ export default function Admin() {
             <input
               type="text"
               placeholder="Username"
-              className="w-full p-2 border border-secondary rounded bg-tertiary text-black"
+              className="w-full p-2 border border-secondary rounded bg-tertiary text-white"
               value={credentials.username}
               onChange={(e) =>
                 setCredentials({ ...credentials, username: e.target.value })
@@ -106,7 +107,7 @@ export default function Admin() {
             <input
               type="password"
               placeholder="Password"
-              className="w-full p-2 border border-secondary rounded bg-tertiary text-black"
+              className="w-full p-2 border border-secondary rounded bg-tertiary text-white"
               value={credentials.password}
               onChange={(e) =>
                 setCredentials({ ...credentials, password: e.target.value })
@@ -190,13 +191,12 @@ export default function Admin() {
                 }
               />
               <label className="block bg-tertiary border border-secondary text-white py-2 px-4 rounded hover:bg-secondary cursor-pointer">
-                Välj bild
+                Choose an image
                 <input
                   type="file"
                   accept="image/*"
                   onChange={handleImageChange}
                   className="hidden"
-                  required
                 />
               </label>
               <button
@@ -211,7 +211,7 @@ export default function Admin() {
           {/* Skills Management */}
           <div className="bg-primary p-6 rounded-lg shadow mb-8">
             <h2 className="text-xl font-bold mb-4 text-white">Manage Skills</h2>
-            <div className="flex gap-4 mb-4">
+            <div className="flex gap-4 flex-col sm:flex-row mb-4">
               <input
                 type="text"
                 placeholder="New Skill"
@@ -237,7 +237,7 @@ export default function Admin() {
                 Add Skill
               </button>
             </div>
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-2 mb-4">
               {techSkills.map((skill, index) => (
                 <div
                   key={index}
