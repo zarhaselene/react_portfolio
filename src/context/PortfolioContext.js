@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect, use } from "react";
+import { createContext, useState, useEffect } from "react";
 
 const PortfolioContext = createContext();
 
@@ -17,6 +17,7 @@ export function PortfolioProvider({ children }) {
   useEffect(() => {
     localStorage.setItem("portfolioProjects", JSON.stringify(projects));
   }, [projects]);
+
   useEffect(() => {
     localStorage.setItem("portfolioTechSkills", JSON.stringify(techSkills));
   }, [techSkills]);
@@ -49,18 +50,19 @@ export function PortfolioProvider({ children }) {
 
   return (
     <PortfolioContext.Provider
-      value={
-        (projects,
+      value={{
+        projects,
         techSkills,
         addProject,
         editProject,
         deleteProject,
         addTechSkill,
-        deleteTechSkill)
-      }
+        deleteTechSkill,
+      }}
     >
       {children}
     </PortfolioContext.Provider>
   );
 }
+
 export default PortfolioContext;
