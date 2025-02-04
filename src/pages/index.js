@@ -1,17 +1,14 @@
 import { useContext } from "react";
 import PortfolioContext from "../context/PortfolioContext";
+import Hero from "../layout/Hero.js";
 
 export default function Home() {
   const { projects, techSkills } = useContext(PortfolioContext);
 
   return (
-    <div className="min-h-screen bg-gray-800 flex flex-col">
+    <div className="bg-primary">
       {/* Hero */}
-      <section className="text-center bg-gray-700 py-20 text-white">
-        <h1 className="text-4xl font-bold mb-4">Your Name</h1>
-        <p className="text-xl">Web Developer</p>
-        <p className="mt-4 max-w-2xl mx-auto">lorem ipsum</p>
-      </section>
+      <Hero />
 
       {/* Tech Skills */}
       <section className="py-12 bg-gray-800 px-4 text-white">
@@ -63,11 +60,11 @@ export default function Home() {
       </section>
 
       {/* Contact */}
-      <section className="py-12 px-4 bg-gray-700 text-white mt-auto">
+      {/* <section className="py-12 px-4 bg-gray-700 text-white mt-auto">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl font-bold mb-8">Contact Me</h2>
         </div>
-      </section>
+      </section> */}
     </div>
   );
 }
